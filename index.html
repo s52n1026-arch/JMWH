@@ -151,6 +151,50 @@
       overflow-x: auto;
       font-size: 0.9rem;
     }
+    .usage-box {
+  margin: 28px 0 32px;
+  padding: 22px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+}
+
+.usage-box h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.35rem;
+}
+
+.usage-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px;
+  margin-top: 14px;
+}
+
+.usage-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+}
+
+.usage-card p {
+  line-height: 1.8;
+  margin: 0;
+}
+
+.usage-card ol {
+  margin: 0;
+  padding-left: 1.4em;
+  line-height: 1.8;
+}
+
+.usage-message {
+  margin-top: 14px !important;
+  font-weight: 700;
+  color: #2563eb;
+}
   </style>
 </head>
 
@@ -161,7 +205,34 @@
       女性医学・更年期・骨粗鬆症・HRTなどの学習用HTML問題集をまとめています。
     </p>
   </header>
+<section class="usage-box">
+  <h2>使い方</h2>
 
+  <div class="usage-card">
+    <h3>基本の使い方</h3>
+    <p>
+      選択肢の精度として複数回答の方が良いため、複数回答形式としています。
+      正解と思う選択肢をタップしてください。
+      正解は20問の後に出てきます。
+    </p>
+  </div>
+
+  <div class="usage-card">
+    <h3>さらにおすすめのやり方</h3>
+    <ol>
+      <li>HTMLファイルをダウンロードしてください。</li>
+      <li>答えた後に「回答とメモをコピー」のボタンを押してください。</li>
+      <li>「HTMLファイル」と「ご自身の回答」をお好きなLLMに渡してください。</li>
+      <li>
+        「私の弱点を明示した上で、わかりやすい詳細レポートを作成してください。」
+        と指示を入れてください。
+      </li>
+    </ol>
+    <p class="usage-message">
+      あなただけのレポートができます。
+    </p>
+  </div>
+</section>
   <main>
     <div class="notice">
       このページは問題集一覧です。各カードをクリックすると、個別のHTML問題集を開けます。
