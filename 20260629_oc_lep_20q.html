@@ -49,8 +49,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 @media(max-width:720px){header,main section{padding:18px 12px}.question-card,.summary-card,.explain-card{padding:14px}.choice{grid-template-columns:32px 1fr}.answer-row{grid-template-columns:1fr}.answer-input{max-width:none}}
 @media print{body{background:white;font-size:10.5pt}header,main section{max-width:none;padding:12mm}.btn,.toolbar,#storage-warning{display:none!important}.question-card,.summary-card,.explain-card{box-shadow:none;page-break-inside:avoid;break-inside:avoid}.answers-section{break-before:page;page-break-before:always}h2,h3{page-break-after:avoid}.choice,.option-comment{break-inside:avoid}textarea{min-height:42px}}
 </style>
-</head>
-<body>
+<style id="main-page-link-style">.main-page-link{max-width:1080px;margin:0 auto;padding:14px 18px 0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif}.main-page-link a{display:inline-block;border:1px solid #2563eb;border-radius:8px;padding:8px 12px;background:#fff;color:#2563eb;text-decoration:none;font-weight:700}.main-page-link a:hover{text-decoration:underline}.main-page-link.bottom{padding-top:20px;padding-bottom:28px}@media print{.main-page-link{display:none!important}}</style></head>
+<body><nav class="main-page-link" aria-label="main page link"><a href="index.html">問題集一覧へ戻る</a></nav>
 <header>
 <h1>女性医学専門医 OC/LEP 20問 5択複数正答問題集</h1>
 <p class="meta">作成日：2026年6月29日 / 各問A-Eから正しいものを全て選択</p>
@@ -116,5 +116,5 @@ async function copySummary(){const t=summaryText(),s=$("#copy-status");try{if(na
 function clearAll(){if(!confirm("入力内容をすべて消去します。よろしいですか？"))return;state={answers:{},memos:{}};try{localStorage.removeItem(STORAGE_KEY)}catch(e){}QUESTIONS.forEach(q=>{const a=$(`#answer-${q.number}`),m=$(`#memo-${q.number}`);if(a)a.value="";if(m)m.value="";updateChoice(q.number);updateJudge(q.number)});renderSummary();save()}
 document.addEventListener("DOMContentLoaded",()=>{load();renderQuestions();renderSummary();renderExplanations();document.addEventListener("click",e=>{const b=e.target.closest(".choice");if(b)toggle(Number(b.dataset.q),b.dataset.choice)});document.addEventListener("input",e=>{if(e.target.classList.contains("answer-input"))setAnswer(Number(e.target.dataset.q),e.target.value);if(e.target.tagName==="TEXTAREA")setMemo(Number(e.target.dataset.q),e.target.value)});$("#copy-btn").addEventListener("click",copySummary);$("#clear-btn").addEventListener("click",clearAll)});
 </script>
-</body>
+<nav class="main-page-link bottom" aria-label="main page link bottom"><a href="index.html">問題集一覧へ戻る</a></nav></body>
 </html>
