@@ -15,6 +15,7 @@ header,main section{max-width:1060px;margin:0 auto;padding:24px 18px}h1{font-siz
 .answer-row{display:grid;grid-template-columns:minmax(130px,190px) 1fr;gap:14px;margin-top:14px}label{display:block;font-weight:800;margin-bottom:5px}.answer-input{width:100%;max-width:190px;border:1px solid var(--line);border-radius:8px;padding:9px;font:inherit;font-weight:900;letter-spacing:.08em;text-transform:uppercase;background:white}
 textarea{width:100%;min-height:88px;border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit;resize:vertical;background:white}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}.btn{border:1px solid var(--brand);border-radius:8px;background:var(--brand);color:white;padding:9px 14px;font:inherit;font-weight:800;cursor:pointer}.btn.secondary{background:white;color:var(--brand)}
+.top-actions{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 4px}.back-link{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--brand);border-radius:8px;background:white;color:var(--brand);padding:9px 14px;font-weight:800;text-decoration:none}.back-link:hover{text-decoration:underline;background:var(--soft)}.back-link:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 .notice{border:1px solid #e1c668;background:#fff8df;color:#5f4500;border-radius:8px;padding:10px 12px;margin-top:12px}.summary-item{border-top:1px solid var(--line);padding:10px 0;white-space:pre-wrap}.summary-item:first-child{border-top:0}.judge{display:inline-block;border-radius:999px;padding:2px 9px;font-weight:900;margin-left:6px}.judge.ok{color:var(--ok);background:#e7f5ec}.judge.bad{color:var(--bad);background:#fdecec}.judge.blank{color:var(--warn);background:#fff3cd}
 .theme-pill{display:inline-block;background:#f1eee7;border:1px solid #ddd2c2;color:#463829;border-radius:999px;padding:3px 9px;font-weight:800;font-size:.9rem}.reprint{background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:12px;margin:10px 0}.option-comment{border-left:4px solid var(--line);background:#fbfcfe;padding:9px 11px;margin:8px 0}.option-comment.correct{border-left-color:var(--ok);background:#f0fbf5}.refs li{margin:6px 0}
 @media(max-width:720px){header,main section{padding:18px 12px}.question-card,.summary-card,.explain-card{padding:14px}.choice{grid-template-columns:32px 1fr}.answer-row{grid-template-columns:1fr}.answer-input{max-width:none}}
@@ -23,6 +24,7 @@ textarea{width:100%;min-height:88px;border:1px solid var(--line);border-radius:8
 </head>
 <body>
 <header>
+<div class="top-actions"><a class="back-link" href="index.html">問題集一覧へ戻る</a></div>
 <h1>女性医学専門医 POP-Q 5択複数正答問題集</h1>
 <p class="meta">作成日：2026年6月24日 / 各問A-Eから正しいものを全て選択</p>
 <p class="hint">選択肢カードをクリックすると選択・解除できます。回答欄へ直接入力する場合は、例：AC のように入力してください。</p>
