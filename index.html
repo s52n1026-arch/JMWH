@@ -120,6 +120,25 @@
       margin: 8px 0;
     }
 
+    .prediction-card {
+      grid-column: 1 / -1;
+    }
+
+    .prediction-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .prediction-links a {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: #f8fafc;
+      font-weight: 700;
+    }
+
     .meta {
       color: var(--muted);
       font-size: 0.9rem;
@@ -248,6 +267,19 @@
 
       <!-- ここから下に問題集を追加していく -->
 
+      <div class="card prediction-card">
+        <h2>2026予想問題</h2>
+        <p>全範囲網羅問題 20問×4セット</p>
+        <p class="meta">作成日：2026年6月24日</p>
+        <div class="prediction-links">
+          <a href="womens-medicine-2026-prediction-set-01.html">セット1</a>
+          <a href="womens-medicine-2026-prediction-set-02.html">セット2</a>
+          <a href="womens-medicine-2026-prediction-set-03.html">セット3</a>
+          <a href="womens-medicine-2026-prediction-set-04.html">セット4</a>
+        </div>
+        <span class="tag">2026予想問題</span>
+      </div>
+
       <div class="card">
         <h2><a href="popq-20260624-20q.html">20260624 POP-Q</a></h2>
         <p>POP-Q 20問 5択複数正答問題集</p>
@@ -301,6 +333,7 @@
       
       <!-- ここまで -->
 
+    </div>
   
 
  
