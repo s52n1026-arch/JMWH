@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>女性医学専門医 HRT 15問 問題解説</title>
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --paper: #fffdf8;
+      --ink: #24211d;
+      --muted: #6f675f;
+      --line: #d8cfc5;
+      --accent: #8f3f2b;
+      --accent-2: #1d6f6f;
+      --soft: #efe5db;
+      --selected: #fff1df;
+      --ok: #1f6b45;
+      --bad: #9d2d22;
+      --shadow: 0 12px 30px rgba(60, 45, 30, 0.10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "YuGothic", "Noto Sans JP", Meiryo, sans-serif;
+      line-height: 1.75;
+      letter-spacing: 0;
+    }
+    .page { width: min(1120px, calc(100% - 28px)); margin: 0 auto; padding: 28px 0 56px; }
+    header.hero {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: clamp(22px, 4vw, 42px);
+      margin-bottom: 22px;
+    }
+    .kicker { color: var(--accent); font-weight: 700; font-size: 0.92rem; margin: 0 0 8px; }
+    h1 { margin: 0; font-size: clamp(1.7rem, 4vw, 3rem); line-height: 1.25; }
+    .lead { margin: 14px 0 0; color: var(--muted); max-width: 74ch; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .pill { border: 1px solid var(--line); background: var(--soft); border-radius: 999px; padding: 5px 12px; font-size: 0.9rem; color: #3b352f; }
+    section { margin-top: 28px; }
+    .section-title { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+    h2 { font-size: clamp(1.35rem, 2.6vw, 2rem); margin: 0; }
+    .status { min-height: 1.6em; color: var(--muted); font-weight: 700; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0 18px; }
+    button {
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fff;
+      border-radius: 6px;
+      padding: 9px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      min-height: 42px;
+    }
+    button.secondary { background: transparent; color: var(--accent); }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, .choice:focus-visible { outline: 3px solid rgba(29, 111, 111, .35); outline-offset: 3px; }
+    .question-card, .summary-panel, .explanation-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 3vw, 28px);
+      margin-bottom: 18px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .question-head { display: flex; justify-content: space-between; gap: 14px; align-items: center; margin-bottom: 10px; }
+    h3 { margin: 0; font-size: clamp(1.08rem, 2vw, 1.32rem); }
+    .stem { white-space: pre-wrap; margin: 10px 0 14px; }
+    .choices { display: grid; gap: 10px; margin: 14px 0; }
+    .choice {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: start;
+      border: 2px solid var(--line);
+      background: #fffaf2;
+      border-radius: 8px;
+      padding: 12px;
+      cursor: pointer;
+      min-height: 58px;
+      text-align: left;
+      color: var(--ink);
+    }
+    .choice .letter { width: 30px; height: 30px; border-radius: 999px; border: 1px solid var(--line); display: inline-flex; align-items: center; justify-content: center; font-weight: 800; background: #fff; }
+    .choice[aria-pressed="true"] { border-color: var(--accent-2); background: var(--selected); box-shadow: inset 0 0 0 2px rgba(29, 111, 111, .16); }
+    .choice[aria-pressed="true"] .letter { background: var(--accent-2); color: #fff; border-color: var(--accent-2); }
+    .answer-area { display: grid; grid-template-columns: minmax(140px, 240px) 1fr; gap: 14px; margin-top: 14px; align-items: start; }
+    label { font-weight: 800; display: block; margin-bottom: 5px; }
+    input.answer-input, textarea.memo-input {
+      width: 100%; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); font: inherit; padding: 10px 12px;
+    }
+    textarea.memo-input { min-height: 108px; resize: vertical; }
+    .hint { color: var(--muted); font-size: .9rem; margin-top: 5px; }
+    .summary-grid { display: grid; gap: 12px; }
+    .summary-item { border-top: 1px solid var(--line); padding-top: 12px; white-space: pre-wrap; }
+    .summary-item:first-child { border-top: 0; padding-top: 0; }
+    .answer-line { font-weight: 800; }
+    .judgement { display: inline-flex; border-radius: 999px; padding: 3px 10px; font-weight: 800; font-size: .9rem; border: 1px solid var(--line); }
+    .judgement.ok { color: var(--ok); border-color: rgba(31, 107, 69, .35); background: rgba(31, 107, 69, .08); }
+    .judgement.bad { color: var(--bad); border-color: rgba(157, 45, 34, .35); background: rgba(157, 45, 34, .08); }
+    .judgement.none { color: var(--muted); background: #f5f0ea; }
+    .reprint, .key-point, .option-comment, .refs { border: 1px solid var(--line); border-radius: 8px; background: #fffaf2; padding: 12px; margin-top: 10px; }
+    .key-point { background: #f4fbf9; border-color: rgba(29, 111, 111, .25); }
+    .option-comment strong { color: var(--accent); }
+    .refs ul { margin: 8px 0 0; padding-left: 1.2em; }
+    .theme { color: var(--muted); font-size: .94rem; font-weight: 800; margin-top: 2px; }
+    .page-break { break-before: page; page-break-before: always; }
+    .copy-buffer { position: fixed; left: -9999px; top: 0; width: 1px; height: 1px; opacity: 0; }
+    .top-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border: 1px solid var(--accent);
+      background: #fffaf2;
+      color: var(--accent);
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .back-link:hover { background: var(--soft); text-decoration: underline; }
+    .back-link:focus-visible { outline: 3px solid rgba(29, 111, 111, .35); outline-offset: 3px; }
+    @media (max-width: 700px) {
+      .page { width: min(100% - 18px, 1120px); padding-top: 14px; }
+      header.hero, .question-card, .summary-panel, .explanation-card { padding: 16px; }
+      .answer-area { grid-template-columns: 1fr; }
+      .choice { grid-template-columns: 36px 1fr; padding: 10px; }
+      .section-title { align-items: flex-start; flex-direction: column; }
+    }
+    @media print {
+      body { background: #fff; }
+      .page { width: 100%; padding: 0; }
+      header.hero, .question-card, .summary-panel, .explanation-card { box-shadow: none; border-color: #999; }
+      .toolbar, .status, button { display: none !important; }
+      .question-card, .explanation-card { break-inside: avoid; page-break-inside: avoid; }
+      textarea, input { border: 1px solid #999; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-actions">
+      <a class="back-link" href="index.html">問題集一覧へ戻る</a>
+    </div>
+    <header class="hero">
+      <p class="kicker">女性医学専門医向け HRT問題集</p>
+      <h1>HRT 15問 問題解説</h1>
+      <p class="lead">選択肢をクリックして回答を記録できます。回答とメモはこのHTML専用のlocalStorageに保存され、回答・解説の答案者欄にも即時反映されます。</p>
+      <div class="meta-row" aria-label="教材情報">
+        <span class="pill">作成日：2026年7月4日</span>
+        <span class="pill">問題数：15問</span>
+        <span class="pill">単一HTML</span>
+      </div>
+    </header>
+
+    <section aria-labelledby="exam-title">
+      <div class="section-title">
+        <h2 id="exam-title">試験問題</h2>
+        <div id="storageStatus" class="status" role="status" aria-live="polite"></div>
+      </div>
+      <div class="toolbar">
+        <button type="button" class="secondary" id="clearButton">入力内容を消去</button>
+      </div>
+      <div id="questionsRoot"></div>
+    </section>
+
+    <section aria-labelledby="summary-title">
+      <div class="section-title">
+        <h2 id="summary-title">回答記録（まとめ）</h2>
+        <div id="copyStatus" class="status" role="status" aria-live="polite"></div>
+      </div>
+      <div class="summary-panel">
+        <div id="summaryRoot" class="summary-grid"></div>
+        <div class="toolbar">
+          <button type="button" id="copyButton">回答とメモをコピー</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-break" aria-labelledby="explanation-title">
+      <div class="section-title">
+        <h2 id="explanation-title">回答・解説</h2>
+      </div>
+      <div id="explanationsRoot"></div>
+    </section>
+  </div>
+  <textarea id="copyFallback" class="copy-buffer" aria-hidden="true" tabindex="-1"></textarea>
+
+  <script>
+    const STORAGE_KEY = 'womens_med_20260704_hrt_15q_problem_explanation_v1';
+    const QUESTIONS = [
+  {
+    "theme": "HRTの期待される作用・効果",
+    "stem": "HRTの期待される作用・効果として最も適切なのはどれか。",
+    "choices": {
+      "A": "全死亡率を低下させる効果は乏しく、関節痛や不眠への効果も期待しにくい。",
+      "B": "全死亡率の低下が示され、関節痛、不眠、経腟投与でのOABに効果がある。",
+      "C": "POPに対しては明確な改善効果があり、腟粘膜改善には経口投与が必要である。",
+      "D": "腰痛、舌痛症、微小血管狭心症、サルコペニアには効果なしとされる。",
+      "E": "OABに対する効果は全身投与でのみ期待され、経腟投与では乏しい。"
+    },
+    "correct": [
+      "B"
+    ],
+    "lead": "HRTは全死亡率を低下させるとされ、リスク比0.7と記載されています。また、関節痛、不眠、OABは経腟投与のみ、腟粘膜改善に効果ありとされています。",
+    "comments": {
+      "A": "全死亡率低下、関節痛、不眠への効果が記載されており誤りです。",
+      "B": "メモの記載と一致します。",
+      "C": "POPは効果なしとされています。",
+      "D": "腰痛、舌痛症、微小血管狭心症、サルコペニアは「効果ありそう」とされています。",
+      "E": "OABは「経腟のみ」効果ありとされています。"
+    },
+    "refs": [
+      "メモ内の根拠：全死亡率を低下させる／リスク比は0.7／効果あり：関節痛、不眠、OAB（経腟のみ）、腟粘膜改善／効果なし：POP",
+      "出題意図：HRTの効果が明確なもの、期待されるもの、効果なしのものを区別できるかを問う問題です。"
+    ]
+  },
+  {
+    "theme": "更年期障害に対する効果",
+    "stem": "更年期障害に対するHRTの効果として最も適切なのはどれか。",
+    "choices": {
+      "A": "血管運動神経症状の発現回数は半減するが、症状の強さはほとんど変化しない。",
+      "B": "血管運動神経症状の改善は軽度であり、中止後の再発はまれである。",
+      "C": "睡眠障害には効果があるが、関節痛や筋肉痛への効果は期待されない。",
+      "D": "血管運動神経症状の強さは約10分の1となり、発現回数も75％減少する。",
+      "E": "記憶力低下には効果があるが、血管運動神経症状には効果が乏しい。"
+    },
+    "correct": [
+      "D"
+    ],
+    "lead": "血管運動神経症状に対して、症状の強さは約10分の1、発現回数は75％減少し、中止で50％の再発があるとされています。",
+    "comments": {
+      "A": "発現回数は75％減少、症状の強さは約10分の1です。",
+      "B": "改善は大きく、中止後50％の再発があるとされています。",
+      "C": "関節痛、筋肉痛にも効果があると記載されています。",
+      "D": "メモの記載と一致します。",
+      "E": "血管運動神経症状はHRTの主要な効果対象です。"
+    },
+    "refs": [
+      "メモ内の根拠：血管運動神経症状に対しては、症状の強さが充分の1となり、発現回数も75%減少／HRTの中止で50%の再発／睡眠障害、関節痛、記憶力低下、筋肉痛などに対しても効果",
+      "出題意図：更年期障害に対するHRTの効果量と中止後再発を確認する問題です。"
+    ]
+  },
+  {
+    "theme": "投与経路と脂質・プラーク",
+    "stem": "エストロゲン投与経路と脂質・プラークへの影響として最も適切なのはどれか。",
+    "choices": {
+      "A": "経口エストロゲンはTGを上昇させ、経皮エストロゲンはTGを低下させる。",
+      "B": "経皮エストロゲンはTGを上昇させ、LDLを小型化して酸化されやすくする。",
+      "C": "経口CEEは炎症マーカーを低下させ、MMPを抑制してプラークを安定化する。",
+      "D": "虚血性心疾患を有する女性では、HERSによりイベント発生が低下した。",
+      "E": "経口CEEと経皮E2では、プラーク不安定化への影響は同等とされる。"
+    },
+    "correct": [
+      "A"
+    ],
+    "lead": "経口エストロゲンはTGを上昇させ、LDLが小さくなる一方、経皮エストロゲンはTGを下げ、LDLが大きく酸化されにくいとされています。",
+    "comments": {
+      "A": "メモの記載と一致します。",
+      "B": "経皮ではTG低下、LDL大型化とされています。",
+      "C": "経口CEEは炎症マーカーやMMPを上昇させ、プラークを不安定化させるとされています。",
+      "D": "HERSでは虚血性心疾患を有する女性のイベント発生が52％増加したと記載されています。",
+      "E": "経口CEEのプラーク不安定化が問題とされています。"
+    },
+    "refs": [
+      "メモ内の根拠：経口エストロゲンはTGを上昇／経皮エストロゲンはTGを下げる／経口CEEは炎症マーカー、MMPを上昇／HERSでイベント発生52％増加",
+      "出題意図：投与経路による脂質代謝と冠動脈リスクの違いを問う問題です。"
+    ]
+  },
+  {
+    "theme": "糖尿病とHRT",
+    "stem": "糖尿病とHRTの関係として最も適切なのはどれか。",
+    "choices": {
+      "A": "糖尿病発症予防効果は経皮投与に限られるため、糖尿病患者では経皮投与を第一選択とする。",
+      "B": "糖尿病患者ではHRTにより冠動脈疾患リスクが低下するため、積極的に使用する。",
+      "C": "経口投与は血糖とインスリンを上昇させるため、糖尿病発症予防効果はない。",
+      "D": "糖尿病患者では動脈性疾患の有無にかかわらず、HRTは常に禁忌である。",
+      "E": "経口投与には糖尿病発症予防効果があるが、糖尿病患者への使用は基本的に推奨されない。"
+    },
+    "correct": [
+      "E"
+    ],
+    "lead": "経口エストロゲンには糖尿病発症予防効果がある一方、糖尿病患者では血管不安定性が強く、基本的に推奨されないとされています。",
+    "comments": {
+      "A": "糖尿病発症予防効果は「経口のみ」と記載されています。",
+      "B": "糖尿病患者で冠動脈疾患リスクが4倍となった研究があると記載されています。",
+      "C": "経口投与では血糖とインスリンを低下させるとされています。",
+      "D": "動脈性疾患がなければHRT可能とはされています。",
+      "E": "メモの記載と一致します。"
+    },
+    "refs": [
+      "メモ内の根拠：経口のみ糖尿病の発症を予防／糖尿病の人は血管の不安定性が強くすすめられない／動脈性疾患がなければHRT可能",
+      "出題意図：糖代謝への効果と、糖尿病患者への適応判断を分けて理解する問題です。"
+    ]
+  },
+  {
+    "theme": "循環器系への作用",
+    "stem": "HRTの循環器系への作用として最も適切なのはどれか。",
+    "choices": {
+      "A": "経口CEEは血圧を明確に低下させ、血管イベントリスクを減少させる。",
+      "B": "HRTは血管内皮機能を悪化させ、一酸化窒素の分泌を抑制する。",
+      "C": "血管内皮機能を改善し、一酸化窒素合成酵素の活性化に関与する。",
+      "D": "血圧が1上昇しても、血管イベントリスクには影響しない。",
+      "E": "抗酸化作用により一酸化窒素の代謝は促進される。"
+    },
+    "correct": [
+      "C"
+    ],
+    "lead": "HRTは血管内皮機能を改善し、一酸化窒素合成酵素を活性化してNOが分泌しやすくなるとされています。",
+    "comments": {
+      "A": "経口CEEでは血圧が1〜1.5上昇すると記載されています。",
+      "B": "血管内皮機能を改善するとされています。",
+      "C": "メモの記載と一致します。",
+      "D": "血圧が1上がるとイベントリスクが2〜3上がるとされています。",
+      "E": "抗酸化作用はNOの代謝を抑制するとされています。"
+    },
+    "refs": [
+      "メモ内の根拠：血管内皮機能を改善／一酸化窒素の合成酵素を活性化／経口CEEでは血圧が1から1.5ほど上昇／血圧が1上がるとイベントリスクが2〜3上がる",
+      "出題意図：内皮機能改善作用と経口CEEによる血圧上昇リスクを対比させる問題です。"
+    ]
+  },
+  {
+    "theme": "認知機能・気分障害・皮膚",
+    "stem": "認知機能・気分障害・皮膚へのHRTの影響として最も適切なのはどれか。",
+    "choices": {
+      "A": "閉経早期開始ではアルツハイマー病発症を予防する可能性があるが、65歳以上では悪化し得る。",
+      "B": "MPAを併用すると認知機能は明確に改善し、高齢開始でも有益性が高い。",
+      "C": "抑うつ症状には効果がなく、うつ病に対してのみ有効性が示されている。",
+      "D": "皮膚コラーゲンは閉経直後5年で増加し、HRTにより皮膚菲薄化が進む。",
+      "E": "周期投与では脳血流が低下するため、認知機能面では避けるべきとされる。"
+    },
+    "correct": [
+      "A"
+    ],
+    "lead": "閉経早期開始ではアルツハイマー病発症予防の可能性がある一方、MPA併用では認知機能は改善せず、65歳以上では悪化し得るとされています。",
+    "comments": {
+      "A": "メモの記載と一致します。",
+      "B": "MPA併用では認知機能は改善しないとされています。",
+      "C": "抑うつ症状は改善するが、うつ病への効果は不明とされています。",
+      "D": "閉経直後5年でコラーゲンは30％低下し、HRTでコラーゲン量増加が期待されます。",
+      "E": "周期投与の方が脳血流が上がるという研究結果があると記載されています。"
+    },
+    "refs": [
+      "メモ内の根拠：閉経早期開始でアルツハイマー発症を予防する可能性／MPA併用では認知機能改善なし／65歳以上では悪化し得る／抑鬱症状の改善／皮膚コラーゲン増加",
+      "出題意図：認知機能における開始時期、MPA併用、高齢開始の違いを問う問題です。"
+    ]
+  },
+  {
+    "theme": "泌尿器系症状・GSM",
+    "stem": "泌尿器系症状に対するHRTの対応として最も適切なのはどれか。",
+    "choices": {
+      "A": "腹圧性尿失禁には全身投与が有効であり、混合性尿失禁にも推奨される。",
+      "B": "GSMに対する経腟投与は避け、全身投与を優先する。",
+      "C": "日本でGSMに使用できる経腟エストロゲンはE2製剤が中心である。",
+      "D": "全身投与は尿失禁リスクを高め得る一方、経腟投与はGSMに有用である。",
+      "E": "乳癌患者では経腟投与も原則として容認されない。"
+    },
+    "correct": [
+      "D"
+    ],
+    "lead": "全身投与は腹圧性尿失禁と混合性尿失禁の発症リスクを高める一方、経腟投与はGSMに有用で、日本ではE3のみとされています。",
+    "comments": {
+      "A": "全身投与は尿失禁発症リスクを高めます。",
+      "B": "GSMには経腟投与が有用です。",
+      "C": "日本ではエストリオールのみと記載されています。",
+      "D": "メモの記載と一致します。",
+      "E": "乳癌患者でも経腟投与は容認されていると記載されています。"
+    },
+    "refs": [
+      "メモ内の根拠：全身投与は腹圧性尿失禁と混合性失禁の発症リスクを高める／経腟投与がGSMに良い／日本ではエストリオールしかない／乳がん患者でも経腟投与は容認",
+      "出題意図：泌尿器症状に対する全身投与と経腟投与の違いを確認する問題です。"
+    ]
+  },
+  {
+    "theme": "悪性腫瘍総論",
+    "stem": "悪性腫瘍とHRTの関係として最も適切なのはどれか。",
+    "choices": {
+      "A": "髄膜腫と肉腫ではHRTを積極的に行う。",
+      "B": "消化器系癌、とくに大腸癌のリスクを低下させる可能性がある。",
+      "C": "肺癌リスクは明確に上昇するため、喫煙歴がなくても避ける。",
+      "D": "HRTでは女性ホルモンがある人との比較になるため、OC/LEPと同じリスク解釈でよい。",
+      "E": "すべての悪性腫瘍リスクを一律に上昇させる。"
+    },
+    "correct": [
+      "B"
+    ],
+    "lead": "HRTでは消化器系癌リスクを低下させる可能性があり、とくに大腸癌リスクは20％程度低下するとされています。肺癌も低下の可能性が示唆されています。",
+    "comments": {
+      "A": "髄膜腫と肉腫ではHRTをやめておこうと記載されています。",
+      "B": "メモの記載と一致します。",
+      "C": "肺癌リスクは低下の可能性が示唆されています。",
+      "D": "HRTはホルモンがない人との比較であり、OC/LEPとは比較対象が異なると記載されています。",
+      "E": "低下する可能性がある癌も記載されています。"
+    },
+    "refs": [
+      "メモ内の根拠：消化器系癌リスクを低下させる可能性／大腸癌リスクは20％程度低下／肺癌リスク低下の可能性／HRTとOC/LEPでは比較対象が違う",
+      "出題意図：HRTにおける癌リスクを一律に捉えず、癌種ごとに整理する問題です。"
+    ]
+  },
+  {
+    "theme": "乳癌・子宮体癌",
+    "stem": "乳癌および子宮体癌とHRTの関係として最も適切なのはどれか。",
+    "choices": {
+      "A": "乳癌リスク上昇は主にエストロゲン単独投与によるものとされる。",
+      "B": "黄体ホルモンを入れない場合、10年程度で乳癌リスクが明確に増加する。",
+      "C": "HRT中止後も乳癌リスクは長期間持続し、数年で消失することはない。",
+      "D": "子宮体癌リスクは黄体ホルモン併用で上昇し、周期投与で低下する。",
+      "E": "乳癌リスク上昇にはMPAが関与するとされ、子宮体癌対策には黄体ホルモンが重要である。"
+    },
+    "correct": [
+      "E"
+    ],
+    "lead": "乳癌リスクは1.26でMPAによるものと考えられるとされ、黄体ホルモンを入れない場合は10年程度ではリスク増加が見られないと記載されています。子宮体癌対策には黄体ホルモン併用が重要です。",
+    "comments": {
+      "A": "乳癌リスク上昇はMPAによるものと考えられると記載されています。",
+      "B": "黄体ホルモンを入れない場合、10年程度ではリスクの増加は見られないとされています。",
+      "C": "CRT中止により数年で乳癌リスクは消失すると記載されています。",
+      "D": "黄体ホルモンを入れておけばよい、周期投与の方がリスクが高いとされています。",
+      "E": "メモの記載と一致します。"
+    },
+    "refs": [
+      "メモ内の根拠：乳がんリスクは1.26、MPAによるものと考えられる／黄体ホルモンなしでは10年程度でリスク増加なし／CRT中止により数年で乳がんリスク消失／子宮体癌は黄体ホルモンを入れておけば良い",
+      "出題意図：乳癌リスクと子宮体癌リスクで黄体ホルモンの意味が異なることを問う問題です。"
+    ]
+  },
+  {
+    "theme": "卵巣癌・子宮頸癌・良性疾患",
+    "stem": "卵巣癌・子宮頸癌・婦人科良性疾患とHRTの関係として最も適切なのはどれか。",
+    "choices": {
+      "A": "卵巣癌リスクはHRTで低下し、OC/LEPと同じ方向の影響を示す。",
+      "B": "子宮頸部扁平上皮癌と腺癌はいずれもHRTで明確に低下する。",
+      "C": "卵巣癌リスクは約1.3倍増加し、子宮頸部腺癌は増えるとされる。",
+      "D": "子宮筋腫合併例では、HRTは一律に禁忌とされる。",
+      "E": "子宮内膜症性嚢胞合併例では、黄体ホルモンを避ける方がよい。"
+    },
+    "correct": [
+      "C"
+    ],
+    "lead": "HRTでは卵巣癌リスクが約1.3倍増加するとされ、OC/LEPとは逆の方向です。子宮頸癌では扁平上皮癌は上がらず、腺癌は増えると記載されています。",
+    "comments": {
+      "A": "HRTでは卵巣癌リスクが1.3程度増加し、OC/LEPとは逆とされています。",
+      "B": "扁平上皮癌は上がらず、腺癌は増えると記載されています。",
+      "C": "メモの記載と一致します。",
+      "D": "筋腫は無視してもよいが経過を見て判断とされています。",
+      "E": "チョコ合併では黄体ホルモンがあった方がよさそうと記載されています。"
+    },
+    "refs": [
+      "メモ内の根拠：卵巣癌リスクは1.3程度増加／OCLEPと逆／子宮頸がんでは扁平上皮癌は上がらない、腺癌は増える／チョコ合併なら黄体ホルモンあった方が良さそう／筋腫は経過を見て判断",
+      "出題意図：HRTとOC/LEPの卵巣癌リスクの方向性の違い、頸癌組織型の違いを問う問題です。"
+    ]
+  },
+  {
+    "theme": "有害事象・トラブル対応",
+    "stem": "HRTの有害事象・トラブル対応として最も適切なのはどれか。",
+    "choices": {
+      "A": "経口エストロゲンではVTEが2〜3倍増加し、経皮投与ではその懸念が小さい。",
+      "B": "乳房痛はエストロゲン量を増やすことで軽減しやすい。",
+      "C": "脳卒中リスクは高血圧の有無にかかわらず変化しない。",
+      "D": "胆石症は経皮投与で主に問題となり、経口投与では増加しにくい。",
+      "E": "胆嚢炎治療後は経口MHTが一般に好ましい。"
+    },
+    "correct": [
+      "A"
+    ],
+    "lead": "経口エストロゲンではVTEが2〜3倍増加し、経皮なら大丈夫と記載されています。胆道系では経口エストロゲンが胆石・胆嚢疾患を増やし、胆嚢炎治療後は経皮MHTが好ましいとされています。",
+    "comments": {
+      "A": "メモの記載と一致します。",
+      "B": "乳房痛はエストロゲン量を減らせば軽減するとされています。",
+      "C": "高血圧では脳卒中リスクにかなり注意が必要で、最大3倍まで増えるとされています。",
+      "D": "胆石症は経口エストロゲンのfirst passが関与します。",
+      "E": "胆嚢炎治療後などでは経皮MHTが一般に好ましいと記載されています。"
+    },
+    "refs": [
+      "メモ内の根拠：乳房痛はエストロゲン量を減らす／経口EでVTEは2〜3倍増加、経皮なら大丈夫／高血圧では脳卒中最大3倍／WHIで胆嚢疾患HR 1.67、CEE＋MPAでHR 1.59／胆嚢炎治療後は経皮MHTが一般に好ましい",
+      "出題意図：投与経路によるVTE、脳卒中、胆道系リスクの違いを問う問題です。"
+    ]
+  },
+  {
+    "theme": "エストロゲン製剤",
+    "stem": "エストロゲン製剤の整理として最も適切なのはどれか。",
+    "choices": {
+      "A": "HRTで用いるエストロゲンはEEが中心で、CEEとE2は排卵抑制用である。",
+      "B": "CEEは経皮製剤が主流であり、WHI後に使用が増加した。",
+      "C": "プレマリン以外のHRT用エストロゲン製剤も多くはCEEである。",
+      "D": "HRTで用いるエストロゲンは主にCEEとE2で、EEは強く長く作用する。",
+      "E": "E2はWHI後に初めて同定・合成された新しいエストロゲンである。"
+    },
+    "correct": [
+      "D"
+    ],
+    "lead": "HRTで用いるエストロゲンはCEEとE2で、EEは効果が長続きし強すぎるため排卵抑制用とされています。プレマリン以外はすべてE2と記載されています。",
+    "comments": {
+      "A": "EEは排卵抑制用であり、HRTの中心ではありません。",
+      "B": "CEEはプレマリンのみで、経皮はないと記載されています。",
+      "C": "プレマリン以外の薬はすべてE2と記載されています。",
+      "D": "メモの記載と一致します。",
+      "E": "E2はWHIよりずっと前、1930年代には同定・合成されていたと記載されています。"
+    },
+    "refs": [
+      "メモ内の根拠：CEEとE2だけ／EEは効果が長続きし強すぎる／CEEはプレマリンだけ、経皮はない／プレマリン以外はすべてE2／E2は1930年代には同定・合成",
+      "出題意図：HRTで使うエストロゲン製剤の種類とCEE、E2、EEの違いを整理する問題です。"
+    ]
+  },
+  {
+    "theme": "経口・経皮の使い分け",
+    "stem": "経口エストロゲンと経皮エストロゲンの使い分けとして最も適切なのはどれか。",
+    "choices": {
+      "A": "経口投与はVTE、脳卒中、TG、胆嚢疾患の面で経皮投与より有利である。",
+      "B": "経口投与が経皮投与に勝るのは主に糖代謝であり、喫煙者では経皮投与が望ましい。",
+      "C": "経皮投与は糖代謝以外のCVDリスク全般で経口投与に劣る。",
+      "D": "喫煙者では経口投与により血中濃度が上がるため、経口投与を優先する。",
+      "E": "経口E2はプレマリンよりTGを上げやすいため、脂質面ではCEEより不利である。"
+    },
+    "correct": [
+      "B"
+    ],
+    "lead": "経口エストロゲンが経皮に勝るのは糖代謝のみとされ、経皮はVTE、脳卒中、TG、胆嚢疾患、肝臓負担、CVDリスク全般で有利とされています。喫煙者では経口で濃度が半分程度になるため経皮が望ましいとされています。",
+    "comments": {
+      "A": "これらは経皮投与が勝る項目です。",
+      "B": "メモの記載と一致します。",
+      "C": "経皮投与はCVDリスク全般で有利とされています。",
+      "D": "喫煙者では経口で濃度が半分ぐらいになると記載されています。",
+      "E": "ジュリナはプレマリンと比べてTGが上がりにくいと記載されています。"
+    },
+    "refs": [
+      "メモ内の根拠：経口が経皮に勝てるのは糖尿病ぐらい／経皮が勝つのはVTE、脳卒中、TG、胆嚢疾患、肝臓への負担、CVDリスク全般／喫煙者には経皮／ジュリナはプレマリンと比べてTGが上がりにくい",
+      "出題意図：経口と経皮の利点を糖代謝、血栓、胆道、喫煙で切り分ける問題です。"
+    ]
+  },
+  {
+    "theme": "黄体ホルモン製剤",
+    "stem": "黄体ホルモン製剤の特徴として最も適切なのはどれか。",
+    "choices": {
+      "A": "MPAはPR選択性が高く、GRやARへの作用はほとんどない。",
+      "B": "プロゲステロンはGABA系への作用が乏しく、就寝前投与には向かない。",
+      "C": "NETAとLNGはC21系であり、アンドロゲン作用は少ない。",
+      "D": "デュファストンはアンドロゲン作用が強く、HRTでは避妊目的に最も向く。",
+      "E": "プロゲステロンとデュファストンは、HRTで自然に近く使いたい場合に上位となる。"
+    },
+    "correct": [
+      "E"
+    ],
+    "lead": "プロゲステロンとデュファストンは、HRTで自然に近く使いたい順で上位とされています。MPAはGR/ARにも作用し、NETAとLNGはC19系でアンドロゲン作用があります。",
+    "comments": {
+      "A": "MPAはGR/ARにも作用すると記載されています。",
+      "B": "プロゲステロンは代謝物がGABA-A系に作用し、眠気を利用して就寝前投与しやすいとされています。",
+      "C": "NETAとLNGはC19系でアンドロゲン作用があります。",
+      "D": "デュファストンはPR選択的でアンドロゲン作用が少なく、避妊には向きません。",
+      "E": "メモの記載と一致します。"
+    },
+    "refs": [
+      "メモ内の根拠：MPAはGR/ARにも作用／プロゲステロンはGABA-A系に作用／ジドロゲステロンはPR選択的／NETAとLNGはC19系でアンドロゲン作用／HRTで自然っぽく使いたい順はプロゲステロン≒デュファストン＞MPA＞NETA・LNG",
+      "出題意図：黄体ホルモンの系統、受容体特性、HRTでの使い分けを問う問題です。"
+    ]
+  },
+  {
+    "theme": "特殊状況・関連薬剤",
+    "stem": "特殊状況や関連薬剤に関する対応として最も適切なのはどれか。",
+    "choices": {
+      "A": "HRT開始前は血圧確認のみで十分であり、CVD・癌・糖尿病リスク評価は不要である。",
+      "B": "BRCA1/2陽性患者ではHRTは推奨されず、周術期には原則中止する。",
+      "C": "60歳超での開始は慎重に行い、継続中も年1回程度は継続可否を評価する。",
+      "D": "抗リン脂質抗体陰性SLEでもHRTは一律禁忌である。",
+      "E": "プラセンタはホルモン作用を有し、献血や臓器提供の制限はない。"
+    },
+    "correct": [
+      "C"
+    ],
+    "lead": "60歳を超えて開始する場合は慎重に目的と評価を行い、終了年齢は一律に決めず、60歳超では年1回程度継続を評価するとされています。",
+    "comments": {
+      "A": "HRT前には血圧に加えCVD、癌、糖尿病などを幅広く見る必要があります。",
+      "B": "BRCA1/2陽性患者へのHRTは推奨され、周術期HRTはやめなくてよいとされています。",
+      "C": "メモの記載と一致します。",
+      "D": "SLEでは抗リン脂質抗体陰性なら慎重に可とされています。",
+      "E": "プラセンタにホルモン作用はなく、献血や臓器提供制限、20年の使用記録が必要と記載されています。"
+    },
+    "refs": [
+      "メモ内の根拠：HRT前に血圧＋CVD、癌、糖尿病を幅広く見る／BRCA1/2陽性患者へのHRTは推奨／抗リン脂質抗体陰性SLEなら慎重に可／60歳超開始は慎重、年1回程度評価／周術期HRTはやめなくてよい／プラセンタはホルモン作用なし、献血や臓器提供制限、20年記録",
+      "出題意図：特殊状況でのHRT適応、開始年齢、継続評価、プラセンタの扱いを問う問題です。"
+    ]
+  }
+];
+    const LETTERS = ['A', 'B', 'C', 'D', 'E'];
+    const state = { answers: {}, memos: {} };
+    let storageAvailable = true;
+
+    function esc(value) {
+      return String(value ?? '').replace(/[&<>'"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[ch]));
+    }
+
+    function normalizeAnswer(value) {
+      const found = String(value || '').toUpperCase().match(/[ABCDE]/);
+      return found ? found[0] : '';
+    }
+
+    function getAnswer(index) { return state.answers[index] || ''; }
+    function getMemo(index) { return state.memos[index] || ''; }
+
+    function saveState() {
+      if (!storageAvailable) return;
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (error) {
+        storageAvailable = false;
+        setStatus('storageStatus', '保存できませんでした。ブラウザの設定または容量をご確認ください。');
+      }
+    }
+
+    function loadState() {
+      try {
+        const testKey = STORAGE_KEY + '_test';
+        localStorage.setItem(testKey, '1');
+        localStorage.removeItem(testKey);
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          state.answers = parsed.answers || {};
+          state.memos = parsed.memos || {};
+        }
+      } catch (error) {
+        storageAvailable = false;
+        setStatus('storageStatus', 'localStorageを使用できないため、入力内容は保存されません。');
+      }
+    }
+
+    function setStatus(id, text) {
+      const node = document.getElementById(id);
+      if (!node) return;
+      node.textContent = text;
+    }
+
+    function renderQuestions() {
+      const root = document.getElementById('questionsRoot');
+      root.innerHTML = QUESTIONS.map((q, i) => {
+        const num = i + 1;
+        const choiceHtml = LETTERS.map(letter => `
+          <button type="button" class="choice" data-question="${i}" data-letter="${letter}" aria-pressed="false">
+            <span class="letter">${letter}</span>
+            <span>${esc(q.choices[letter])}</span>
+          </button>`).join('');
+        return `
+          <article class="question-card" id="question-${num}" aria-labelledby="question-title-${num}">
+            <div class="question-head">
+              <h3 id="question-title-${num}">第${num}問</h3>
+            </div>
+            <p class="stem">${esc(q.stem)}</p>
+            <div class="choices" role="group" aria-label="第${num}問の選択肢">
+              ${choiceHtml}
+            </div>
+            <div class="answer-area">
+              <div>
+                <label for="answer-${i}">回答記入欄</label>
+                <input id="answer-${i}" class="answer-input" data-question="${i}" inputmode="latin" autocomplete="off" maxlength="1" aria-describedby="answer-hint-${i}">
+                <div class="hint" id="answer-hint-${i}">A、B、C、D、Eを入力できます。小文字は自動で大文字になります。</div>
+              </div>
+              <div>
+                <label for="memo-${i}">メモ欄</label>
+                <textarea id="memo-${i}" class="memo-input" data-question="${i}" placeholder="考え方や復習事項を記入"></textarea>
+              </div>
+            </div>
+          </article>`;
+      }).join('');
+    }
+
+    function renderSummary() {
+      const root = document.getElementById('summaryRoot');
+      root.innerHTML = QUESTIONS.map((_, i) => {
+        const answer = getAnswer(i) || '未回答';
+        const memo = getMemo(i) || '';
+        return `<div class="summary-item"><div class="answer-line">第${i + 1}問</div><div>回答：${esc(answer)}</div><div>メモ：${esc(memo)}</div></div>`;
+      }).join('');
+    }
+
+    function isCorrect(index) {
+      const answer = normalizeAnswer(getAnswer(index)).split('').sort().join('');
+      const correct = [...QUESTIONS[index].correct].sort().join('');
+      return answer.length > 0 && answer === correct;
+    }
+
+    function judgementHtml(index) {
+      const answer = getAnswer(index);
+      if (!answer) return '<span class="judgement none">未回答</span>';
+      return isCorrect(index) ? '<span class="judgement ok">正解</span>' : '<span class="judgement bad">不正解</span>';
+    }
+
+    function renderExplanations() {
+      const root = document.getElementById('explanationsRoot');
+      root.innerHTML = QUESTIONS.map((q, i) => {
+        const num = i + 1;
+        const choices = LETTERS.map(letter => `<div><strong>${letter}.</strong> ${esc(q.choices[letter])}</div>`).join('');
+        const comments = LETTERS.map(letter => `<div class="option-comment"><strong>${letter}</strong> ${esc(q.comments[letter])}</div>`).join('');
+        const refs = (q.refs || []).map(ref => `<li>${esc(ref)}</li>`).join('');
+        return `
+          <article class="explanation-card" id="explanation-${num}" aria-labelledby="explanation-title-${num}">
+            <h3 id="explanation-title-${num}">第${num}問</h3>
+            <div class="theme">関連テーマ：${esc(q.theme)}</div>
+            <div class="reprint">
+              <strong>問題文の再掲</strong>
+              <p class="stem">${esc(q.stem)}</p>
+              <div>${choices}</div>
+            </div>
+            <p class="answer-line">答案者の回答：<span id="explain-answer-${i}">未回答</span> <span id="judge-${i}">${judgementHtml(i)}</span></p>
+            <p class="answer-line">正答：${esc(q.correct.join(''))}</p>
+            <div class="key-point"><strong>正解の根拠：</strong>${esc(q.lead)}</div>
+            <h4>各選択肢へのコメント</h4>
+            ${comments}
+            <div class="refs">
+              <strong>根拠・出題意図</strong>
+              <ul>${refs}</ul>
+            </div>
+          </article>`;
+      }).join('');
+    }
+
+    function syncQuestion(index) {
+      const answer = getAnswer(index);
+      const input = document.getElementById(`answer-${index}`);
+      const memo = document.getElementById(`memo-${index}`);
+      if (input) input.value = answer;
+      if (memo) memo.value = getMemo(index);
+      document.querySelectorAll(`.choice[data-question="${index}"]`).forEach(button => {
+        const selected = answer.includes(button.dataset.letter);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      });
+      const explainAnswer = document.getElementById(`explain-answer-${index}`);
+      if (explainAnswer) explainAnswer.textContent = answer || '未回答';
+      const judge = document.getElementById(`judge-${index}`);
+      if (judge) judge.innerHTML = judgementHtml(index);
+    }
+
+    function syncAll() {
+      QUESTIONS.forEach((_, i) => syncQuestion(i));
+      renderSummary();
+    }
+
+    function updateAnswer(index, value) {
+      const normalized = normalizeAnswer(value);
+      if (normalized) state.answers[index] = normalized;
+      else delete state.answers[index];
+      saveState();
+      syncQuestion(index);
+      renderSummary();
+    }
+
+    function updateMemo(index, value) {
+      if (value) state.memos[index] = value;
+      else delete state.memos[index];
+      saveState();
+      renderSummary();
+    }
+
+    function bindEvents() {
+      document.getElementById('questionsRoot').addEventListener('click', event => {
+        const button = event.target.closest('.choice');
+        if (!button) return;
+        const index = Number(button.dataset.question);
+        const letter = button.dataset.letter;
+        const current = getAnswer(index);
+        const next = current === letter ? '' : letter;
+        updateAnswer(index, next);
+      });
+
+      document.getElementById('questionsRoot').addEventListener('input', event => {
+        const target = event.target;
+        if (target.classList.contains('answer-input')) {
+          const index = Number(target.dataset.question);
+          const normalized = normalizeAnswer(target.value);
+          target.value = normalized;
+          updateAnswer(index, normalized);
+        }
+        if (target.classList.contains('memo-input')) {
+          updateMemo(Number(target.dataset.question), target.value);
+        }
+      });
+
+      document.getElementById('clearButton').addEventListener('click', () => {
+        if (!confirm('回答とメモをすべて消去します。よろしいですか？')) return;
+        state.answers = {};
+        state.memos = {};
+        if (storageAvailable) {
+          try { localStorage.removeItem(STORAGE_KEY); } catch (error) { storageAvailable = false; }
+        }
+        syncAll();
+        setStatus('storageStatus', '入力内容を消去しました。');
+      });
+
+      document.getElementById('copyButton').addEventListener('click', copySummary);
+    }
+
+    function summaryText() {
+      return QUESTIONS.map((_, i) => `第${i + 1}問\n回答：${getAnswer(i) || '未回答'}\nメモ：${getMemo(i) || ''}`).join('\n\n');
+    }
+
+    async function copySummary() {
+      const text = summaryText();
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const textarea = document.getElementById('copyFallback');
+          textarea.value = text;
+          textarea.focus();
+          textarea.select();
+          const ok = document.execCommand('copy');
+          if (!ok) throw new Error('execCommand failed');
+        }
+        setStatus('copyStatus', 'コピーしました。');
+      } catch (error) {
+        setStatus('copyStatus', 'コピーできませんでした。まとめ欄を選択して手動でコピーしてください。');
+      }
+    }
+
+    renderQuestions();
+    renderExplanations();
+    loadState();
+    bindEvents();
+    syncAll();
+  </script>
+</body>
+</html>
